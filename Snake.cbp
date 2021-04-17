@@ -33,7 +33,7 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Linker>
-			<Add library="/usr/lib/libncurses.so" />
+			<Add library="/usr/lib/libncursesw.so" />
 		</Linker>
 		<Unit filename="main.cpp" />
 		<Extensions />
