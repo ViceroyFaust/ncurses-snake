@@ -15,19 +15,6 @@ void clean() {
     endwin();
 }
 
-void displayMenu() {
-    int row, col;
-    getmaxyx(stdscr, row, col);
-    char welcome[] = "Welcome to C++ Snake!";
-    char prsAnyKey[] = "Press any key to start";
-    char signature[] = "Created by Danylo Rybchynskyi, 2021";
-    mvprintw(row/2, (col-strlen(welcome))/2, "%s", welcome);
-    mvprintw(row/2-1, (col-strlen(prsAnyKey))/2, "%s", prsAnyKey);
-    mvprintw(row-1, 0, "%s", signature);
-    getch();
-    clear();
-}
-
 void drawBox(int x, int y) {
     addch(ACS_ULCORNER);
     for (int i = 0; i < x-2; i++) {
@@ -48,10 +35,33 @@ void drawBox(int x, int y) {
     getch();
 }
 
-int main()
-{
+void displayMenu() {
+    int row, col;
+    getmaxyx(stdscr, row, col);
+    char welcome[] = "Welcome to C++ Snake!";
+    char prsAnyKey[] = "Press any key to start";
+    char signature[] = "Created by Danylo Rybchynskyi, 2021";
+    mvprintw(row/2, (col-strlen(welcome))/2, "%s", welcome);
+    mvprintw(row/2-1, (col-strlen(prsAnyKey))/2, "%s", prsAnyKey);
+    mvprintw(row-1, 0, "%s", signature);
+    getch();
+    clear();
+}
+
+void startGame() {
+    drawBox(66, 34); // Draw the border
+    WINDOW* arena = newwin(32, 64, 1, 1);
+    refresh();
+    wrefresh(arena);
+    getch();
+
+}
+
+
+
+int main() {
     cursesInit();
     displayMenu();
-    drawBox(32, 32);
+    startGame();
     clean();
 }
