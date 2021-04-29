@@ -24,7 +24,7 @@ public:
 
     void grow();
     void move();
-    void setDirection();
+    void setDirection(Direction& direction);
 
     int getSize();
 

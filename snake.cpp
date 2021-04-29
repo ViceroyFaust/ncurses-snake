@@ -15,10 +15,10 @@ void Snake::move() {
 
 }
 
-void Snake::setDirection() {
-
+void Snake::setDirection(Direction& direction) {
+    m_head.movDirection = direction;
 }
 
 int Snake::getSize() {
-
+    return m_body.size();
 }
