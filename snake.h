@@ -14,4 +14,20 @@ struct BodyPart {
     int y{};
 };
 
+class Snake {
+private:
+    BodyPart head;
+    std::list<BodyPart> body;
+
+public:
+    Snake(int startx, int starty);
+
+    void grow();
+    void move();
+    void setDirection();
+
+    int getSize();
+
+};
+
 #endif // SNAKE_H_INCLUDED
