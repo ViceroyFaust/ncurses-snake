@@ -1,14 +1,14 @@
 #ifndef SNAKE_H_INCLUDED
 #define SNAKE_H_INCLUDED
 
-struct BodyPart {
-    enum Direction {
-        d_up;
-        d_down;
-        d_left;
-        d_right;
+enum Direction {
+        d_up,
+        d_down,
+        d_left,
+        d_right,
     };
 
+struct BodyPart {
     Direction movDirection{};
     int x{};
     int y{};
@@ -16,11 +16,11 @@ struct BodyPart {
 
 class Snake {
 private:
-    BodyPart head;
-    std::list<BodyPart> body;
+    BodyPart m_head;
+    std::list<BodyPart> m_body;
 
 public:
-    Snake(int startx, int starty);
+    Snake(Direction startDir, int startx, int starty);
 
     void grow();
     void move();
