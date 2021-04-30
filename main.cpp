@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string.h>
 #include <ncurses.h>
+#include "snake.h"
 
 void cursesInit() {
     initscr();
@@ -49,12 +50,34 @@ void displayMenu() {
 }
 
 void startGame() {
+    int input{};
+    Snake snake = Snake(d_down, 1, 1);
     drawBox(66, 34); // Draw the border
     WINDOW* arena = newwin(32, 64, 1, 1);
-    refresh();
-    wrefresh(arena);
-    getch();
+    keypad(arena, true); //enable keypad and special keys
+    refresh(); // to show window
+    while (true) {
+        wrefresh(arena);
+        input = getch();
+        switch (input) {
+            case 259: // Up
+                snake.setDirection(d_up);
+                break;
+            case 258: // Down
+                snake.setDirection(d_down);
+                break;
+            case 260: // Left
+                snake.setDirection(d_left);
+                break;
+            case 261: // Right
+                snake.setDirection(d_right);
+                break;
+            case 27:
+                exit(0);
 
+        }
+        snake.move();
+    }
 }
 
 

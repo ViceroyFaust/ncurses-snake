@@ -1,5 +1,6 @@
 #ifndef SNAKE_H_INCLUDED
 #define SNAKE_H_INCLUDED
+#include <list>
 
 enum Direction {
         d_up,
@@ -24,7 +25,7 @@ public:
 
     void grow();
     void move();
-    void setDirection(Direction& direction);
+    void setDirection(Direction direction);
 
     int getSize();
 

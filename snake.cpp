@@ -1,4 +1,3 @@
-#include <list>
 #include "snake.h"
 
 Snake::Snake(Direction startDir, int startx, int starty)
@@ -32,7 +31,7 @@ void Snake::move() {
     }
 }
 
-void Snake::setDirection(Direction& direction) {
+void Snake::setDirection(Direction direction) {
     m_head.movDirection = direction;
 }
 
