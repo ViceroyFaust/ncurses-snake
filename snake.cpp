@@ -1,7 +1,7 @@
 #include "snake.h"
 
 Snake::Snake(Direction startDir, int startx, int starty)
-    : m_head{startDir, startx, starty}, m_body{m_head}
+    : m_body{BodyPart(startDir, startx, starty)}
 {
     // Everything is initialised
 }
@@ -11,7 +11,8 @@ void Snake::grow() {
 }
 
 void Snake::move() {
-    for (BodyPart part : m_body) {
+    for (int i = 0; i < m_body.size(); i++) {
+        BodyPart& part = m_body.at(i);
         switch(part.movDirection) {
             /* The coordinate plane starts at 0,0 in
                the upper left corner */
@@ -32,9 +33,13 @@ void Snake::move() {
 }
 
 void Snake::setDirection(Direction direction) {
-    m_head.movDirection = direction;
+    m_body.front().movDirection = direction;
 }
 
 int Snake::getSize() {
     return m_body.size();
 }
+std::vector<BodyPart> Snake::getBody() {
+    return m_body;
+}
+

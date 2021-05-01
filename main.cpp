@@ -5,7 +5,8 @@
 
 void cursesInit() {
     initscr();
-    raw(); // no line buffering
+    raw();
+    cbreak(); // no line buffering
     keypad(stdscr, true); //enable keypad and special keys
     noecho(); // Don't print input
     curs_set(0);
@@ -49,14 +50,23 @@ void displayMenu() {
     clear();
 }
 
+void snakeDraw(WINDOW* win, Snake& snake) {
+    for (BodyPart part : snake.getBody()) {
+        mvwaddch(win, part.y, part.x * 2, 'X'); // Multiplied by 2 due width > height
+    }
+}
+
 void startGame() {
     int input{};
-    Snake snake = Snake(d_down, 1, 1);
-    drawBox(66, 34); // Draw the border
-    WINDOW* arena = newwin(32, 64, 1, 1);
+    Snake snake = Snake(d_down, 0, 0);
+    drawBox(34, 18); // Draw the border
+    WINDOW* arena = newwin(16, 32, 1, 1);
     keypad(arena, true); //enable keypad and special keys
+
     refresh(); // to show window
     while (true) {
+        wclear(arena);
+        snakeDraw(arena, snake);
         wrefresh(arena);
         input = getch();
         switch (input) {

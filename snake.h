@@ -1,6 +1,6 @@
 #ifndef SNAKE_H_INCLUDED
 #define SNAKE_H_INCLUDED
-#include <list>
+#include <vector>
 
 enum Direction {
         d_up,
@@ -17,8 +17,7 @@ struct BodyPart {
 
 class Snake {
 private:
-    BodyPart m_head;
-    std::list<BodyPart> m_body;
+    std::vector<BodyPart> m_body;
 
 public:
     Snake(Direction startDir, int startx, int starty);
@@ -28,6 +27,7 @@ public:
     void setDirection(Direction direction);
 
     int getSize();
+    std::vector<BodyPart> getBody();
 
 };
 
