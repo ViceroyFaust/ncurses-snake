@@ -1,5 +1,7 @@
 # depslib dependency file v1.0
-1619828573 source:/home/dfowl/Devel/CWorkspace/Snake/main.cpp
+1619879238 source:/home/dfowl/Devel/CWorkspace/Snake/main.cpp
+	<Windows.h>
+	<unistd.h>
 	<iostream>
 	<string.h>
 	<ncurses.h>

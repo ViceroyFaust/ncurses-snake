@@ -1,3 +1,8 @@
+#ifdef _WIN32
+#include <Windows.h>
+#else
+#include <unistd.h>
+#endif
 #include <iostream>
 #include <string.h>
 #include <ncurses.h>
@@ -5,7 +10,6 @@
 
 void cursesInit() {
     initscr();
-    raw();
     cbreak(); // no line buffering
     keypad(stdscr, true); //enable keypad and special keys
     noecho(); // Don't print input
@@ -13,7 +17,8 @@ void cursesInit() {
 }
 
 void clean() {
-    noraw(); //Disable raw for reasons
+    nocbreak(); // enable line buffering
+    echo();
     endwin();
 }
 
@@ -59,15 +64,16 @@ void snakeDraw(WINDOW* win, Snake& snake) {
 void startGame() {
     int input{};
     Snake snake = Snake(d_down, 0, 0);
-    drawBox(34, 18); // Draw the border
+    drawBox(34, 18); // Draw the border. box and border methods don't work
     WINDOW* arena = newwin(16, 32, 1, 1);
-    keypad(arena, true); //enable keypad and special keys
-
-    refresh(); // to show window
-    while (true) {
+    nodelay(stdscr, true); // to enable timeout
+    wrefresh(arena); // to show window
+    bool run = true;
+    while (run) {
         wclear(arena);
         snakeDraw(arena, snake);
         wrefresh(arena);
+        usleep(80000);
         input = getch();
         switch (input) {
             case 259: // Up
@@ -83,11 +89,12 @@ void startGame() {
                 snake.setDirection(d_right);
                 break;
             case 27:
-                exit(0);
+                run = false;
 
         }
         snake.move();
     }
+    delwin(arena);
 }
 
 
