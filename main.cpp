@@ -8,17 +8,21 @@
 #include <ncurses.h>
 #include "snake.h"
 
+WINDOW* arena;
+
 void cursesInit() {
     initscr();
     cbreak(); // no line buffering
     keypad(stdscr, true); //enable keypad and special keys
     noecho(); // Don't print input
+    arena = newwin(16, 32, 1, 1);
     curs_set(0);
 }
 
 void clean() {
     nocbreak(); // enable line buffering
     echo();
+    delwin(arena);
     endwin();
 }
 
@@ -39,19 +43,18 @@ void drawBox(int x, int y) {
         addch(ACS_HLINE);
     }
     addch(ACS_LRCORNER);
-    getch();
 }
 
 void displayMenu() {
     int row, col;
     getmaxyx(stdscr, row, col);
     char welcome[] = "Welcome to C++ Snake!";
-    char prsAnyKey[] = "Press any key to start";
+    char prsAnyKey[] = "Press any key to start/esc to exit";
     char signature[] = "Created by Danylo Rybchynskyi, 2021";
     mvprintw(row/2, (col-strlen(welcome))/2, "%s", welcome);
     mvprintw(row/2-1, (col-strlen(prsAnyKey))/2, "%s", prsAnyKey);
     mvprintw(row-1, 0, "%s", signature);
-    getch();
+    getch(); // Any key to continue. Player can press esc when game starts
     clear();
 }
 
@@ -65,7 +68,6 @@ void startGame() {
     int input{};
     Snake snake = Snake(d_down, 0, 0);
     drawBox(34, 18); // Draw the border. box and border methods don't work
-    WINDOW* arena = newwin(16, 32, 1, 1);
     nodelay(stdscr, true); // to enable timeout
     wrefresh(arena); // to show window
     bool run = true;
@@ -94,7 +96,6 @@ void startGame() {
         }
         snake.move();
     }
-    delwin(arena);
 }
 
 
