@@ -7,7 +7,25 @@ Snake::Snake(Direction startDir, int startx, int starty)
 }
 
 void Snake::grow() {
-
+    BodyPart& oldTail = m_body.at(m_body.size()-1);
+    BodyPart newPart;
+    switch(oldTail.movDirection) {
+            /* The coordinate plane starts at 0,0 in
+               the upper left corner */
+            case d_up:
+                newPart = BodyPart(oldTail.movDirection, oldTail.x, oldTail.y+1);
+                break;
+            case d_down:
+                newPart = BodyPart(oldTail.movDirection, oldTail.x, oldTail.y-1);
+                break;
+            case d_left:
+                newPart = BodyPart(oldTail.movDirection, oldTail.x+1, oldTail.y);
+                break;
+            case d_right:
+                newPart = BodyPart(oldTail.movDirection, oldTail.x-1, oldTail.y);
+                break;
+    }
+    m_body.push_back(newPart);
 }
 
 void Snake::move() {
