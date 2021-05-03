@@ -29,8 +29,8 @@ void Snake::grow() {
 }
 
 void Snake::move() {
-    for (int i = 0; i < m_body.size(); i++) {
-        BodyPart& part = m_body.at(i);
+    auto prevDirection = m_body.front().movDirection;
+    for(auto &part : m_body) {
         switch(part.movDirection) {
             /* The coordinate plane starts at 0,0 in
                the upper left corner */
@@ -47,11 +47,22 @@ void Snake::move() {
                 part.x += 1;
                 break;
         }
+        std::swap(part.movDirection, prevDirection);
     }
 }
 
 void Snake::setDirection(Direction direction) {
-    m_body.front().movDirection = direction;
+    Direction current = m_body.front().movDirection;
+    // The snake changes direction only in 90 degree turns
+    if (current == d_left && direction != d_right)
+        m_body.front().movDirection = direction;
+    else if (current == d_right && direction != d_left)
+        m_body.front().movDirection = direction;
+    else if (current == d_up && direction != d_down)
+        m_body.front().movDirection = direction;
+    else if (current == d_down && direction != d_up)
+        m_body.front().movDirection = direction;
+
 }
 
 int Snake::getSize() {
