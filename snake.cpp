@@ -1,7 +1,7 @@
 #include "snake.h"
 
 Snake::Snake(Direction startDir, int startx, int starty)
-    : m_body{BodyPart(startDir, startx, starty)}
+    : m_body{BodyPart(startDir, Point(startx, starty))}
 {
     // Everything is initialised
 }
@@ -13,16 +13,16 @@ void Snake::grow() {
             /* The coordinate plane starts at 0,0 in
                the upper left corner */
             case d_up:
-                newPart = BodyPart(oldTail.movDirection, oldTail.x, oldTail.y+1);
+                newPart = BodyPart(oldTail.movDirection, Point(oldTail.coord.x, oldTail.coord.y+1));
                 break;
             case d_down:
-                newPart = BodyPart(oldTail.movDirection, oldTail.x, oldTail.y-1);
+                newPart = BodyPart(oldTail.movDirection, Point(oldTail.coord.x, oldTail.coord.y-1));
                 break;
             case d_left:
-                newPart = BodyPart(oldTail.movDirection, oldTail.x+1, oldTail.y);
+                newPart = BodyPart(oldTail.movDirection, Point(oldTail.coord.x+1, oldTail.coord.y));
                 break;
             case d_right:
-                newPart = BodyPart(oldTail.movDirection, oldTail.x-1, oldTail.y);
+                newPart = BodyPart(oldTail.movDirection, Point(oldTail.coord.x-1, oldTail.coord.y));
                 break;
     }
     m_body.push_back(newPart);
@@ -35,16 +35,16 @@ void Snake::move() {
             /* The coordinate plane starts at 0,0 in
                the upper left corner */
             case d_up:
-                part.y -= 1;
+                part.coord.y -= 1;
                 break;
             case d_down:
-                part.y += 1;
+                part.coord.y += 1;
                 break;
             case d_left:
-                part.x -= 1;
+                part.coord.x -= 1;
                 break;
             case d_right:
-                part.x += 1;
+                part.coord.x += 1;
                 break;
         }
         std::swap(part.movDirection, prevDirection);

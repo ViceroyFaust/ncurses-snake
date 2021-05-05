@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1620077671 source:/home/dfowl/Devel/CWorkspace/Snake/main.cpp
+1620221156 source:/home/dfowl/Devel/CWorkspace/Snake/main.cpp
 	<Windows.h>
 	<unistd.h>
 	<iostream>
@@ -7,9 +7,14 @@
 	<ncurses.h>
 	"snake.h"
 
-1620081701 source:/home/dfowl/Devel/CWorkspace/Snake/snake.cpp
+1620221145 source:/home/dfowl/Devel/CWorkspace/Snake/snake.cpp
 	"snake.h"
 
-1619828430 /home/dfowl/Devel/CWorkspace/Snake/snake.h
+1620220829 /home/dfowl/Devel/CWorkspace/Snake/snake.h
 	<vector>
+	"structures.h"
+
+1620220295 source:/home/dfowl/Devel/CWorkspace/Snake/apple.cpp
+
+1620221189 /home/dfowl/Devel/CWorkspace/Snake/structures.h
 

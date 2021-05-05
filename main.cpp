@@ -60,7 +60,7 @@ void displayMenu() {
 
 void snakeDraw(WINDOW* win, Snake& snake) {
     for (BodyPart part : snake.getBody()) {
-        mvwaddch(win, part.y, part.x * 2, 'X'); // Multiplied by 2 due width > height
+        mvwaddch(win, part.coord.y, part.coord.x * 2, 'X'); // Multiplied by 2 due width > height
     }
 }
 

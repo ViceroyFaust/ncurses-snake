@@ -1,19 +1,7 @@
 #ifndef SNAKE_H_INCLUDED
 #define SNAKE_H_INCLUDED
 #include <vector>
-
-enum Direction {
-        d_up,
-        d_down,
-        d_left,
-        d_right,
-    };
-
-struct BodyPart {
-    Direction movDirection{};
-    int x{};
-    int y{};
-};
+#include "structures.h"
 
 class Snake {
 private:
