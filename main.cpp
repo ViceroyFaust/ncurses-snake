@@ -66,7 +66,7 @@ void snakeDraw(WINDOW* win, Snake& snake) {
 
 void startGame() {
     int input{};
-    Snake snake = Snake(d_down, 0, 0);
+    Snake snake = Snake(d_down, Point(0, 0));
     drawBox(34, 18); // Draw the border. box and border methods don't work
     nodelay(stdscr, true); // to enable timeout
     wrefresh(arena); // to show window

@@ -7,14 +7,18 @@
 	<ncurses.h>
 	"snake.h"
 
-1620221145 source:/home/dfowl/Devel/CWorkspace/Snake/snake.cpp
+1620221675 source:/home/dfowl/Devel/CWorkspace/Snake/snake.cpp
 	"snake.h"
 
-1620220829 /home/dfowl/Devel/CWorkspace/Snake/snake.h
+1620221662 /home/dfowl/Devel/CWorkspace/Snake/snake.h
 	<vector>
 	"structures.h"
 
-1620220295 source:/home/dfowl/Devel/CWorkspace/Snake/apple.cpp
+1620221563 source:/home/dfowl/Devel/CWorkspace/Snake/apple.cpp
+	"apple.h"
 
 1620221189 /home/dfowl/Devel/CWorkspace/Snake/structures.h
+
+1620221560 /home/dfowl/Devel/CWorkspace/Snake/apple.h
+	"structures.h"
 

@@ -8,7 +8,7 @@ private:
     std::vector<BodyPart> m_body;
 
 public:
-    Snake(Direction startDir, int startx, int starty);
+    Snake(Direction startDir, Point coord);
 
     void grow();
     void move();

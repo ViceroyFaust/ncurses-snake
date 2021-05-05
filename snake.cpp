@@ -1,7 +1,7 @@
 #include "snake.h"
 
-Snake::Snake(Direction startDir, int startx, int starty)
-    : m_body{BodyPart(startDir, Point(startx, starty))}
+Snake::Snake(Direction startDir, Point startCoord)
+    : m_body{BodyPart(startDir, startCoord)}
 {
     // Everything is initialised
 }
