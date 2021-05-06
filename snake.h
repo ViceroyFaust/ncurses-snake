@@ -15,7 +15,7 @@ public:
     void setDirection(Direction direction);
 
     int getSize();
-    std::vector<BodyPart> getBody();
+    std::vector<BodyPart>& getBody();
 
 };
 

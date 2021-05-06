@@ -6,7 +6,7 @@ class Apple {
 private:
     Point m_coord;
 public:
-    Apple(int x, int y);
+    Apple(Point coord);
     Point getCoord();
 };
 

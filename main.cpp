@@ -5,8 +5,11 @@
 #endif
 #include <iostream>
 #include <string.h>
+#include <vector>
 #include <ncurses.h>
+#include "structures.h"
 #include "snake.h"
+#include "apple.h"
 
 WINDOW* arena;
 
@@ -49,7 +52,7 @@ void displayMenu() {
     int row, col;
     getmaxyx(stdscr, row, col);
     char welcome[] = "Welcome to C++ Snake!";
-    char prsAnyKey[] = "Press any key to start/esc to exit";
+    char prsAnyKey[] = "Press any key to start / esc to exit";
     char signature[] = "Created by Danylo Rybchynskyi, 2021";
     mvprintw(row/2, (col-strlen(welcome))/2, "%s", welcome);
     mvprintw(row/2-1, (col-strlen(prsAnyKey))/2, "%s", prsAnyKey);
@@ -58,21 +61,45 @@ void displayMenu() {
     clear();
 }
 
+Apple makeApple(Snake& snake) {
+    Point coord;
+    bool done;
+    do {
+        done = true;
+        coord = Point(rand()%17, rand()%17);
+        for(auto &part : snake.getBody()) {
+            if ((part.coord.x == coord.x) && (part.coord.y == coord.y)) {
+                done = false;
+                break;
+            }
+        }
+
+    } while (!done);
+    return Apple(coord);
+}
+
+void drawApple(WINDOW* win, Apple& apple) {
+    mvwaddch(win, apple.getCoord().y, apple.getCoord().x * 2, '0'); // Multiplied by 2 due width > height
+}
+
 void snakeDraw(WINDOW* win, Snake& snake) {
     for (BodyPart part : snake.getBody()) {
         mvwaddch(win, part.coord.y, part.coord.x * 2, 'X'); // Multiplied by 2 due width > height
     }
 }
 
+
 void startGame() {
     int input{};
     Snake snake = Snake(d_down, Point(0, 0));
+    Apple apple = makeApple(snake);
     drawBox(34, 18); // Draw the border. box and border methods don't work
     nodelay(stdscr, true); // to enable timeout
     wrefresh(arena); // to show window
     bool run = true;
     while (run) {
         wclear(arena);
+        drawApple(arena, apple);
         snakeDraw(arena, snake);
         wrefresh(arena);
         usleep(80000);

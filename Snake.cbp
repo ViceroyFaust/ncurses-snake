@@ -35,9 +35,12 @@
 		<Linker>
 			<Add library="/usr/lib/libncursesw.so" />
 		</Linker>
+		<Unit filename="apple.cpp" />
+		<Unit filename="apple.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="snake.cpp" />
 		<Unit filename="snake.h" />
+		<Unit filename="structures.h" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

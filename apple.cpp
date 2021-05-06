@@ -1,7 +1,7 @@
 #include "apple.h"
 
-Apple::Apple(int startx, int starty)
-    : m_coord{startx, starty}
+Apple::Apple(Point coord)
+    : m_coord{coord}
 {
     // Everything is initialised
 }

@@ -1,4 +1,6 @@
+#include <vector>
 #include "snake.h"
+#include "structures.h"
 
 Snake::Snake(Direction startDir, Point startCoord)
     : m_body{BodyPart(startDir, startCoord)}
@@ -68,7 +70,7 @@ void Snake::setDirection(Direction direction) {
 int Snake::getSize() {
     return m_body.size();
 }
-std::vector<BodyPart> Snake::getBody() {
+std::vector<BodyPart>& Snake::getBody() {
     return m_body;
 }
 
