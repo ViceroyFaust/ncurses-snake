@@ -96,7 +96,7 @@ bool appleCollision(Snake& snake, Apple& apple) {
 
 bool wallCollision(Snake& snake) {
     Point snakeCoord = snake.getBody().front().coord;
-    if (snakeCoord.x < 0 || snakeCoord.x > 16 || snakeCoord.y < 0 || snakeCoord.y > 16) {
+    if (snakeCoord.x < 0 || snakeCoord.x > 15 || snakeCoord.y < 0 || snakeCoord.y > 15) {
         return true;
     }
     return false;
