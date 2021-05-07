@@ -88,6 +88,11 @@ void snakeDraw(WINDOW* win, Snake& snake) {
     }
 }
 
+bool appleCollision(Snake& snake, Apple& apple) {
+    Point snakeCoord = snake.getBody().front().coord;
+    Point appleCoord = apple.getCoord();
+    return ((snakeCoord.x == appleCoord.x) && (snakeCoord.y == appleCoord.y));
+}
 
 void startGame() {
     int input{};
