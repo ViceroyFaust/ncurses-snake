@@ -104,8 +104,9 @@ bool wallCollision(Snake& snake) {
 
 bool snakeCollision(Snake& snake) {
     Point headCoord = snake.getBody().front().coord;
-    for(auto &part : snake.getBody()) {
-        if ((part.coord.x == headCoord.x) && (part.coord.y == headCoord.y)) {
+    for(int i = 1; i < snake.getBody().size(); ++i) {
+        Point coord = snake.getBody()[i].coord;
+        if ((coord.x == headCoord.x) && (coord.y == headCoord.y)) {
             return true;
         }
     }
