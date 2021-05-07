@@ -66,7 +66,7 @@ Apple makeApple(Snake& snake) {
     bool done;
     do {
         done = true;
-        coord = Point(rand()%17, rand()%17);
+        coord = Point(rand()%16, rand()%16); // Coordinates are 0-15
         for(auto &part : snake.getBody()) {
             if ((part.coord.x == coord.x) && (part.coord.y == coord.y)) {
                 done = false;
