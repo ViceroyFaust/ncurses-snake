@@ -94,6 +94,14 @@ bool appleCollision(Snake& snake, Apple& apple) {
     return ((snakeCoord.x == appleCoord.x) && (snakeCoord.y == appleCoord.y));
 }
 
+bool wallCollision(Snake& snake) {
+    Point snakeCoord = snake.getBody().front().coord;
+    if (snakeCoord.x < 0 || snakeCoord.x > 16 || snakeCoord.y < 0 || snakeCoord.y > 16) {
+        return true;
+    }
+    return false;
+}
+
 void startGame() {
     int input{};
     Snake snake = Snake(d_down, Point(0, 0));
