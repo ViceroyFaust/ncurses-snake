@@ -138,6 +138,13 @@ void startGame() {
 
         }
         snake.move();
+        if (appleCollision(snake, apple)) {
+            snake.grow();
+            apple = makeApple(snake);
+        }
+        if (wallCollision(snake)) {
+            run = false;
+        }
     }
 }
 
