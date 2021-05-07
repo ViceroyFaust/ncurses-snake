@@ -102,6 +102,16 @@ bool wallCollision(Snake& snake) {
     return false;
 }
 
+bool snakeCollision(Snake& snake) {
+    Point headCoord = snake.getBody().front().coord;
+    for(auto &part : snake.getBody()) {
+        if ((part.coord.x == headCoord.x) && (part.coord.y == headCoord.y)) {
+            return true;
+        }
+    }
+    return false;
+}
+
 void startGame() {
     int input{};
     Snake snake = Snake(d_down, Point(0, 0));
