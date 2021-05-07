@@ -153,7 +153,7 @@ void startGame() {
             snake.grow();
             apple = makeApple(snake);
         }
-        if (wallCollision(snake)) {
+        if (wallCollision(snake) || snakeCollision(snake)) {
             run = false;
         }
     }
