@@ -88,31 +88,6 @@ void snakeDraw(WINDOW* win, Snake& snake) {
     }
 }
 
-bool appleCollision(Snake& snake, Apple& apple) {
-    Point snakeCoord = snake.getBody().front().coord;
-    Point appleCoord = apple.getCoord();
-    return ((snakeCoord.x == appleCoord.x) && (snakeCoord.y == appleCoord.y));
-}
-
-bool wallCollision(Snake& snake) {
-    Point snakeCoord = snake.getBody().front().coord;
-    if (snakeCoord.x < 0 || snakeCoord.x > 15 || snakeCoord.y < 0 || snakeCoord.y > 15) {
-        return true;
-    }
-    return false;
-}
-
-bool snakeCollision(Snake& snake) {
-    Point headCoord = snake.getBody().front().coord;
-    for(int i = 1; i < snake.getBody().size(); ++i) {
-        Point coord = snake.getBody()[i].coord;
-        if ((coord.x == headCoord.x) && (coord.y == headCoord.y)) {
-            return true;
-        }
-    }
-    return false;
-}
-
 void startGame() {
     int input{};
     Snake snake = Snake(d_down, Point(0, 0));
@@ -149,11 +124,10 @@ void startGame() {
 
         }
         snake.move();
-        if (appleCollision(snake, apple)) {
-            snake.grow();
+        if (snake.eatApple(apple)) {
             apple = makeApple(snake);
         }
-        if (wallCollision(snake) || snakeCollision(snake)) {
+        if (snake.checkCollision()) {
             run = false;
         }
     }

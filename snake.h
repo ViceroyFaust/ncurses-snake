@@ -2,6 +2,7 @@
 #define SNAKE_H_INCLUDED
 #include <vector>
 #include "structures.h"
+#include "apple.h"
 
 class Snake {
 private:
@@ -13,6 +14,9 @@ public:
     void grow();
     void move();
     void setDirection(Direction direction);
+
+    bool eatApple(Apple apple);
+    bool checkCollision();
 
     int getSize();
     std::vector<BodyPart>& getBody();

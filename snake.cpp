@@ -67,6 +67,30 @@ void Snake::setDirection(Direction direction) {
 
 }
 
+bool Snake::eatApple(Apple apple) {
+    Point snakeCoord = m_body[0].coord;
+    Point appleCoord = apple.getCoord();
+    if ((snakeCoord.x == appleCoord.x) && (snakeCoord.y == appleCoord.y)) {
+        grow();
+        return true;
+    }
+    return false;
+}
+
+bool Snake::checkCollision() {
+    Point headCoord = m_body[0].coord;
+    if (headCoord.x < 0 || headCoord.x > 15 || headCoord.y < 0 || headCoord.y > 15) {
+        return true;
+    }
+    for(int i = 1; i < m_body.size(); ++i) {
+        Point coord = m_body[i].coord;
+        if ((coord.x == headCoord.x) && (coord.y == headCoord.y)) {
+            return true;
+        }
+    }
+    return false;
+}
+
 int Snake::getSize() {
     return m_body.size();
 }
