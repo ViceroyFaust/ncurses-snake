@@ -55,9 +55,20 @@ void displayMenu() {
     char prsAnyKey[] = "Press any key to start / esc to exit";
     char signature[] = "Created by Danylo Rybchynskyi, 2021";
     mvprintw(row/2, (col-strlen(welcome))/2, "%s", welcome);
-    mvprintw(row/2-1, (col-strlen(prsAnyKey))/2, "%s", prsAnyKey);
+    mvprintw(row/2+1, (col-strlen(prsAnyKey))/2, "%s", prsAnyKey);
     mvprintw(row-1, 0, "%s", signature);
     getch(); // Any key to continue. Player can press esc when game starts
+    clear();
+}
+
+void displayEnd(int score) {
+    int row, col;
+    getmaxyx(stdscr, row, col);
+    char theEnd[] = "Game over!";
+    char scoreReport[] = "Your final score was: ";
+    mvprintw(row/2, (col-strlen(theEnd))/2, "%s", theEnd);
+    mvprintw(row/2+1, (col-strlen(scoreReport))/2, "%s%d", scoreReport, score);
+    getch(); // Any key to eixt
     clear();
 }
 
@@ -78,6 +89,11 @@ Apple makeApple(Snake& snake) {
     return Apple(coord);
 }
 
+void drawScore(int score) {
+    // Display score a few lines below the box
+    mvprintw(18, 0, "Score: %d", score);
+}
+
 void drawApple(WINDOW* win, Apple& apple) {
     mvwaddch(win, apple.getCoord().y, apple.getCoord().x * 2, '0'); // Multiplied by 2 due width > height
 }
@@ -88,16 +104,15 @@ void snakeDraw(WINDOW* win, Snake& snake) {
     }
 }
 
-void startGame() {
+void startGame(Snake& snake, Apple& apple) {
     int input{};
-    Snake snake = Snake(d_down, Point(0, 0));
-    Apple apple = makeApple(snake);
     drawBox(34, 18); // Draw the border. box and border methods don't work
     nodelay(stdscr, true); // to enable timeout
     wrefresh(arena); // to show window
     bool run = true;
     while (run) {
         wclear(arena);
+        drawScore(snake.getBody().size()-1);
         drawApple(arena, apple);
         snakeDraw(arena, snake);
         wrefresh(arena);
@@ -128,13 +143,19 @@ void startGame() {
             run = false;
         }
     }
+    clear();
+    nodelay(stdscr, false); // disable timeout for end screen
 }
 
 
 
 int main() {
+    Snake snake = Snake(d_down, Point(0, 0));
+    Apple apple = Apple(Point(7, 7));
+
     cursesInit();
     displayMenu();
-    startGame();
+    startGame(snake, apple);
+    displayEnd(snake.getBody().size());
     clean();
 }
