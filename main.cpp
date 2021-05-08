@@ -116,9 +116,6 @@ void startGame() {
             case 261: // Right
                 snake.setDirection(d_right);
                 break;
-            case 'a':
-                snake.grow();
-                break;
             case 27:
                 run = false;
 
