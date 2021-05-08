@@ -156,6 +156,6 @@ int main() {
     cursesInit();
     displayMenu();
     startGame(snake, apple);
-    displayEnd(snake.getBody().size());
+    displayEnd(snake.getBody().size()-1);
     clean();
 }
