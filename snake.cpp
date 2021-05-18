@@ -91,10 +91,10 @@ bool Snake::checkCollision() {
     return false;
 }
 
-int Snake::size() {
+int Snake::size() const {
     return m_body.size();
 }
 
-const BodyPart& Snake::partAt(int x) {
+const BodyPart& Snake::partAt(int x) const {
     return m_body[x];
 }

@@ -78,7 +78,8 @@ Apple makeApple(const Snake& snake) {
     do {
         done = true;
         coord = Point(rand()%16, rand()%16); // Coordinates are 0-15
-        for(auto &part : snake.getBody()) {
+        for (int i = 0; i < snake.size(); i++) {
+            const BodyPart& part = snake.partAt(i);
             if ((part.coord.x == coord.x) && (part.coord.y == coord.y)) {
                 done = false;
                 break;
@@ -99,7 +100,8 @@ void drawApple(WINDOW* win, const Apple& apple) {
 }
 
 void snakeDraw(WINDOW* win, const Snake& snake) {
-    for (BodyPart part : snake.getBody()) {
+    for (int i = 0; i < snake.size(); i++) {
+        const BodyPart& part = snake.partAt(i);
         mvwaddch(win, part.coord.y, part.coord.x * 2, 'X'); // Multiplied by 2 due width > height
     }
 }
@@ -112,7 +114,7 @@ void startGame(Snake& snake, Apple& apple) {
     bool run = true;
     while (run) {
         wclear(arena);
-        drawScore(snake.getBody().size()-1);
+        drawScore(snake.size()-1);
         drawApple(arena, apple);
         snakeDraw(arena, snake);
         wrefresh(arena);
@@ -156,6 +158,6 @@ int main() {
     cursesInit();
     displayMenu();
     startGame(snake, apple);
-    displayEnd(snake.getBody().size()-1);
+    displayEnd(snake.size()-1);
     clean();
 }
