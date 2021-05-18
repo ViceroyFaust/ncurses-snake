@@ -72,7 +72,7 @@ void displayEnd(int score) {
     clear();
 }
 
-Apple makeApple(Snake& snake) {
+Apple makeApple(const Snake& snake) {
     Point coord;
     bool done;
     do {
@@ -94,11 +94,11 @@ void drawScore(int score) {
     mvprintw(18, 0, "Score: %d", score);
 }
 
-void drawApple(WINDOW* win, Apple& apple) {
+void drawApple(WINDOW* win, const Apple& apple) {
     mvwaddch(win, apple.getCoord().y, apple.getCoord().x * 2, '0'); // Multiplied by 2 due width > height
 }
 
-void snakeDraw(WINDOW* win, Snake& snake) {
+void snakeDraw(WINDOW* win, const Snake& snake) {
     for (BodyPart part : snake.getBody()) {
         mvwaddch(win, part.coord.y, part.coord.x * 2, 'X'); // Multiplied by 2 due width > height
     }

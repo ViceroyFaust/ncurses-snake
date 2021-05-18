@@ -15,11 +15,11 @@ public:
     void move();
     void setDirection(Direction direction);
 
-    bool eatApple(Apple apple);
+    bool eatApple(const Apple& apple);
     bool checkCollision();
 
-    int getSize();
-    std::vector<BodyPart>& getBody();
+    int getSize() const;
+    std::vector<BodyPart> getBody() const;
 
 };
 

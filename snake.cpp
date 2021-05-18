@@ -67,7 +67,7 @@ void Snake::setDirection(Direction direction) {
 
 }
 
-bool Snake::eatApple(Apple apple) {
+bool Snake::eatApple(const Apple& apple) {
     Point snakeCoord = m_body[0].coord;
     Point appleCoord = apple.getCoord();
     if ((snakeCoord.x == appleCoord.x) && (snakeCoord.y == appleCoord.y)) {
@@ -91,10 +91,10 @@ bool Snake::checkCollision() {
     return false;
 }
 
-int Snake::getSize() {
+int Snake::getSize() const {
     return m_body.size();
 }
-std::vector<BodyPart>& Snake::getBody() {
+std::vector<BodyPart> Snake::getBody() const {
     return m_body;
 }
 
