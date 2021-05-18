@@ -23,10 +23,11 @@ void cursesInit() {
 }
 
 void clean() {
+    nodelay(stdscr, false); // disable timeout for end screen
     nocbreak(); // enable line buffering
-    echo();
-    delwin(arena);
-    endwin();
+    echo(); // enable output for terminal
+    delwin(arena); // clean arena's memory
+    endwin(); // clean remaining window memory
 }
 
 void drawBox(int x, int y) {
@@ -67,8 +68,9 @@ void displayEnd(int score) {
     char theEnd[] = "Game over!";
     char scoreReport[] = "Your final score was: ";
     mvprintw(row/2, (col-strlen(theEnd))/2, "%s", theEnd);
-    mvprintw(row/2+1, (col-strlen(scoreReport))/2, "%s%d", scoreReport, score);
-    getch(); // Any key to eixt
+    mvprintw(row/2+1, (col-strlen(scoreReport))/2, "%s%d", scoreReport, score);\
+    refresh();
+    sleep(3);
     clear();
 }
 
@@ -146,7 +148,6 @@ void startGame(Snake& snake, Apple& apple) {
         }
     }
     clear();
-    nodelay(stdscr, false); // disable timeout for end screen
 }
 
 
