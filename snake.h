@@ -18,9 +18,8 @@ public:
     bool eatApple(const Apple& apple);
     bool checkCollision();
 
-    int getSize() const;
-    std::vector<BodyPart> getBody() const;
-
+    int size() const;
+    const BodyPart& partAt(int x) const;
 };
 
 #endif // SNAKE_H_INCLUDED
