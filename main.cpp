@@ -79,7 +79,7 @@ Apple makeApple(const Snake& snake) {
     bool done;
     do {
         done = true;
-        coord = Point(rand()%16, rand()%16); // Coordinates are 0-15
+        coord = Point{rand()%16, rand()%16}; // Coordinates are 0-15
         for (int i = 0; i < snake.size(); i++) {
             const BodyPart& part = snake.partAt(i);
             if ((part.coord.x == coord.x) && (part.coord.y == coord.y)) {
@@ -153,8 +153,8 @@ void startGame(Snake& snake, Apple& apple) {
 
 
 int main() {
-    Snake snake = Snake(d_down, Point(0, 0));
-    Apple apple = Apple(Point(7, 7));
+    Snake snake = Snake(d_down, Point{0, 0});
+    Apple apple = Apple(Point{7, 7});
 
     cursesInit();
     displayMenu();

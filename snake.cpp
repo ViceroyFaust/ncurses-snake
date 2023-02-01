@@ -2,29 +2,32 @@
 #include "snake.h"
 #include "structures.h"
 
-Snake::Snake(Direction startDir, Point startCoord)
-    : m_body{BodyPart(startDir, startCoord)}
+Snake::Snake(Direction startDir, Point startCoord) : m_body{BodyPart{startDir, startCoord}}
 {
     // Everything is initialised
 }
 
 void Snake::grow() {
     BodyPart& oldTail = m_body.at(m_body.size()-1);
-    BodyPart newPart;
+    BodyPart newPart = {};
     switch(oldTail.movDirection) {
             /* The coordinate plane starts at 0,0 in
                the upper left corner */
             case d_up:
-                newPart = BodyPart(oldTail.movDirection, Point(oldTail.coord.x, oldTail.coord.y+1));
+                newPart.movDirection = oldTail.movDirection;
+                newPart.coord = {oldTail.coord.x, oldTail.coord.y + 1};
                 break;
             case d_down:
-                newPart = BodyPart(oldTail.movDirection, Point(oldTail.coord.x, oldTail.coord.y-1));
+                newPart.movDirection = oldTail.movDirection;
+                newPart.coord = {oldTail.coord.x, oldTail.coord.y - 1};
                 break;
             case d_left:
-                newPart = BodyPart(oldTail.movDirection, Point(oldTail.coord.x+1, oldTail.coord.y));
+                newPart.movDirection = oldTail.movDirection;
+                newPart.coord = {oldTail.coord.x + 1, oldTail.coord.y};
                 break;
             case d_right:
-                newPart = BodyPart(oldTail.movDirection, Point(oldTail.coord.x-1, oldTail.coord.y));
+                newPart.movDirection = oldTail.movDirection;
+                newPart.coord = {oldTail.coord.x - 1, oldTail.coord.y};
                 break;
     }
     m_body.push_back(newPart);

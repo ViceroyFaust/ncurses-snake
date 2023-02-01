@@ -10,13 +10,13 @@ enum Direction {
 // Because x and y are very widely used in this program
 // I decided to make it its own struct
 struct Point {
-    int x{};
-    int y{};
+    int x;
+    int y;
 };
 
 struct BodyPart {
-    Direction movDirection{};
-    Point coord{};
+    Direction movDirection;
+    Point coord;
 };
 
 #endif // STRUCTURES_H_INCLUDED
