@@ -1,10 +1,6 @@
-#ifdef _WIN32
-#include <Windows.h>
-#else
 #include <unistd.h>
-#endif
 #include <iostream>
-#include <string.h>
+#include <string>
 #include <vector>
 #include <ncurses.h>
 #include "structures.h"
@@ -23,7 +19,6 @@ void cursesInit() {
 }
 
 void clean() {
-    nodelay(stdscr, false); // disable timeout for end screen
     nocbreak(); // enable line buffering
     echo(); // enable output for terminal
     delwin(arena); // clean arena's memory
@@ -52,12 +47,12 @@ void drawBox(int x, int y) {
 void displayMenu() {
     int row, col;
     getmaxyx(stdscr, row, col);
-    char welcome[] = "Welcome to C++ Snake!";
-    char prsAnyKey[] = "Press any key to start / esc to exit";
-    char signature[] = "Created by Danylo Rybchynskyi, 2021";
-    mvprintw(row/2, (col-strlen(welcome))/2, "%s", welcome);
-    mvprintw(row/2+1, (col-strlen(prsAnyKey))/2, "%s", prsAnyKey);
-    mvprintw(row-1, 0, "%s", signature);
+    std::string welcome = "Welcome to C++ Snake!";
+    std::string prsAnyKey = "Press any key to start / q to exit";
+    std::string signature = "Created by Danylo Rybchynskyi, 2021";
+    mvprintw(row/2, (col - welcome.length())/2, "%s", welcome.c_str());
+    mvprintw(row/2+1, (col - prsAnyKey.length())/2, "%s", prsAnyKey.c_str());
+    mvprintw(row-1, 0, "%s", signature.c_str());
     getch(); // Any key to continue. Player can press esc when game starts
     clear();
 }
@@ -65,12 +60,15 @@ void displayMenu() {
 void displayEnd(int score) {
     int row, col;
     getmaxyx(stdscr, row, col);
-    char theEnd[] = "Game over!";
-    char scoreReport[] = "Your final score was: ";
-    mvprintw(row/2, (col-strlen(theEnd))/2, "%s", theEnd);
-    mvprintw(row/2+1, (col-strlen(scoreReport))/2, "%s%d", scoreReport, score);\
+    std::string theEnd = "Game over!";
+    std::string scoreReport = "Your final score was: ";
+    scoreReport += std::to_string(score);
+    std::string pressQ = "Press Q to exit";
+    mvprintw(row/2 - 1, (col - theEnd.length())/2, "%s", theEnd.c_str());
+    mvprintw(row/2, (col - scoreReport.length())/2, "%s", scoreReport.c_str());
+    mvprintw(row/2 + 1, (col - pressQ.length())/2, "%s", pressQ.c_str());
     refresh();
-    sleep(3);
+    while (getch() != 'q') {}
     clear();
 }
 
@@ -123,21 +121,20 @@ void startGame(Snake& snake, Apple& apple) {
         usleep(80000);
         input = getch();
         switch (input) {
-            case 259: // Up
+            case KEY_UP: // Up
                 snake.setDirection(d_up);
                 break;
-            case 258: // Down
+            case KEY_DOWN: // Down
                 snake.setDirection(d_down);
                 break;
-            case 260: // Left
+            case KEY_LEFT: // Left
                 snake.setDirection(d_left);
                 break;
-            case 261: // Right
+            case KEY_RIGHT: // Right
                 snake.setDirection(d_right);
                 break;
-            case 27:
+            case 'q':
                 run = false;
-
         }
         snake.move();
         if (snake.eatApple(apple)) {
