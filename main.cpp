@@ -1,4 +1,6 @@
 #include <unistd.h>
+#include <stdlib.h>
+#include <time.h>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -16,6 +18,8 @@ void cursesInit() {
     noecho(); // Don't print input
     arena = newwin(16, 32, 1, 1);
     curs_set(0);
+    // Seed the random number generator
+    srand(time(NULL));
 }
 
 void clean() {
