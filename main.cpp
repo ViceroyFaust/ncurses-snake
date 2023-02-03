@@ -72,6 +72,7 @@ void displayEnd(int score) {
     mvprintw(row/2, (col - scoreReport.length())/2, "%s", scoreReport.c_str());
     mvprintw(row/2 + 1, (col - pressQ.length())/2, "%s", pressQ.c_str());
     refresh();
+    nodelay(stdscr, false); // to disable timeout
     while (getch() != 'q') {}
     clear();
 }
