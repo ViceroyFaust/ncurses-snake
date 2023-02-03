@@ -1,11 +1,24 @@
 #include "arena.h"
 #include "structures.h"
 #include <stdlib.h>
+#include <time.h>
 
-Arena::Arena(int width, int height) : m_width(width), m_height(height), m_snake(d_right, Point{1, height / 2}) {}
+Arena::Arena(int width, int height) : m_width(width), m_height(height), m_snake(d_right, Point{1, height / 2}) {
+    generateApple();
+}
+
+// Returns a copy of the snake
+Snake Arena::getSnake() {
+    return m_snake;
+}
+
+// Returns a copy of the apple
+Apple Arena::getApple() {
+    return m_apple;
+}
 
 // Generates a random location for the apple
-bool Arena::generateApple() {
+void Arena::generateApple() {
     Point newAppleCoordinate;
     bool done;
     do {
@@ -24,6 +37,11 @@ bool Arena::generateApple() {
     m_apple(coord);
 }
 
+// Should be run only once to initialize the random number generator
+void Arena::seedRNG() {
+    srand(time(NULL)); // Use current time as seed to make every game unique
+}
+
 // Moves snake forward
 void Arena::moveSnake() {
     m_snake.move();
@@ -32,6 +50,11 @@ void Arena::moveSnake() {
 // Grows the snake
 void Arena::growSnake() {
     m_snake.grow();
+}
+
+// Set the snake's move direction
+void Arena::setSnakeDirection(Direction direction) {
+    m_snake.setDirection(direction);
 }
 
 // Checks whether the snake is colliding with a wall
@@ -58,5 +81,18 @@ bool Arena::snakeAppleCollision() {
     Point headCoord = m_snake.partAt(0).coord;
     Point appleCoord = m_apple.getCoord();
     return (headCoord.x == appleCoord.x) && (headCoord.y == appleCoord.y);
+}
+
+// Runs one turn of the game. Returns true if nothing happened; False if the snake died
+bool Arena::nextTurn() {
+    m_snake.move();
+    if (snakeWallCollision() || snakeSelfCollision())
+        return false;
+    if (snakeAppleCollision()) {
+        m_snake.grow();
+        generateApple();
+    }
+
+    return true;
 }
 
