@@ -21,6 +21,9 @@ public:
     // Returns a copy of the apple
     Apple getApple();
 
+    // Returns the game score
+    int getScore();
+
     // Should be run only once to initialize the random number generator
     void seedRNG();
 

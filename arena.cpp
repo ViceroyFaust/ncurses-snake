@@ -17,6 +17,11 @@ Apple Arena::getApple() {
     return m_apple;
 }
 
+// Returns the game score
+int Arena::getScore() {
+    return m_snake.size() - 1;
+}
+
 // Generates a random location for the apple
 void Arena::generateApple() {
     Point newAppleCoordinate;
