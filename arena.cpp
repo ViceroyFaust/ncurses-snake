@@ -5,6 +5,7 @@
 
 Arena::Arena(int width, int height) : m_width(width), m_height(height), m_snake(d_right, Point{1, height / 2}) {
     generateApple();
+    seedRNG();
 }
 
 // Returns a copy of the snake
