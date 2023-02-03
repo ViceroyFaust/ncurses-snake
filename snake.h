@@ -15,11 +15,8 @@ public:
     void move();
     void setDirection(Direction direction);
 
-    bool eatApple(const Apple& apple);
-    bool checkCollision();
-
-    int size() const;
-    const BodyPart& partAt(int x) const;
+    int size();
+    BodyPart partAt(int x);
 };
 
 #endif // SNAKE_H_INCLUDED

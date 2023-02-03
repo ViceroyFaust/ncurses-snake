@@ -7,7 +7,7 @@ private:
     Point m_coord;
 public:
     Apple(Point coord);
-    Point getCoord() const;
+    Point getCoord();
 };
 
 #endif // APPLE_H_INCLUDED

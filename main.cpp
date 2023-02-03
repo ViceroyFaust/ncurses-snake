@@ -77,24 +77,6 @@ void displayEnd(int score) {
     clear();
 }
 
-Apple makeApple(const Snake& snake) {
-    Point coord;
-    bool done;
-    do {
-        done = true;
-        coord = Point{rand()%16, rand()%16}; // Coordinates are 0-15
-        for (int i = 0; i < snake.size(); i++) {
-            const BodyPart& part = snake.partAt(i);
-            if ((part.coord.x == coord.x) && (part.coord.y == coord.y)) {
-                done = false;
-                break;
-            }
-        }
-
-    } while (!done);
-    return Apple(coord);
-}
-
 void drawScore(int score) {
     // Display score a few lines below the box
     mvprintw(18, 0, "Score: %d", score);
