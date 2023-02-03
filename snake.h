@@ -15,8 +15,8 @@ public:
     void move();
     void setDirection(Direction direction);
 
-    int size();
-    BodyPart partAt(int x);
+    int size() const;
+    const BodyPart& partAt(int x) const;
 };
 
 #endif // SNAKE_H_INCLUDED

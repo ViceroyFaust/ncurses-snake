@@ -1,6 +1,4 @@
 #include <unistd.h>
-#include <stdlib.h>
-#include <time.h>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -8,6 +6,7 @@
 #include "structures.h"
 #include "snake.h"
 #include "apple.h"
+#include "arena.h"
 
 WINDOW* arena;
 
@@ -18,8 +17,6 @@ void cursesInit() {
     noecho(); // Don't print input
     arena = newwin(16, 32, 1, 1);
     curs_set(0);
-    // Seed the random number generator
-    srand(time(NULL));
 }
 
 void clean() {
@@ -93,7 +90,10 @@ void snakeDraw(WINDOW* win, const Snake& snake) {
     }
 }
 
-void startGame(Snake& snake, Apple& apple) {
+void startGame() {
+    displayMenu();
+
+    Arena game(16, 16);
     int input{};
     drawBox(34, 18); // Draw the border. box and border methods don't work
     nodelay(stdscr, true); // to enable timeout
@@ -101,48 +101,39 @@ void startGame(Snake& snake, Apple& apple) {
     bool run = true;
     while (run) {
         wclear(arena);
-        drawScore(snake.size()-1);
-        drawApple(arena, apple);
-        snakeDraw(arena, snake);
+        drawScore(game.getScore());
+        drawApple(arena, game.getApple());
+        snakeDraw(arena, game.getSnake());
         wrefresh(arena);
         usleep(80000);
         input = getch();
         switch (input) {
             case KEY_UP: // Up
-                snake.setDirection(d_up);
+                game.setSnakeDirection(d_up);
                 break;
             case KEY_DOWN: // Down
-                snake.setDirection(d_down);
+                game.setSnakeDirection(d_down);
                 break;
             case KEY_LEFT: // Left
-                snake.setDirection(d_left);
+                game.setSnakeDirection(d_left);
                 break;
             case KEY_RIGHT: // Right
-                snake.setDirection(d_right);
+                game.setSnakeDirection(d_right);
                 break;
             case 'q':
                 run = false;
         }
-        snake.move();
-        if (snake.eatApple(apple)) {
-            apple = makeApple(snake);
-        }
-        if (snake.checkCollision()) {
-            run = false;
-        }
+        run = game.nextTurn();
     }
     clear();
+
+    displayEnd(game.getScore());
 }
 
 
 
 int main() {
-    Snake snake = Snake(d_down, Point{0, 0});
-    Apple apple = Apple(Point{7, 7});
-
     cursesInit();
-    displayMenu();
-    startGame(snake, apple);
-    displayEnd(snake.size()-1);
+    startGame();
     clean();
 }

@@ -16,13 +16,13 @@ public:
     Arena(int width, int height);
 
     // Returns a copy of the snake
-    Snake getSnake();
+    const Snake& getSnake() const;
 
     // Returns a copy of the apple
-    Apple getApple();
+    const Apple& getApple() const;
 
     // Returns the game score
-    int getScore();
+    int getScore() const;
 
     // Should be run only once to initialize the random number generator
     void seedRNG();
@@ -40,13 +40,13 @@ public:
     void setSnakeDirection(Direction direction);
 
     // Checks whether the snake is colliding with a wall
-    bool snakeWallCollision();
+    bool snakeWallCollision() const;
 
     // Checks whether the snake is colliding with itself
-    bool snakeSelfCollision();
+    bool snakeSelfCollision() const;
 
     // Checks whether the snake is colliding with the apple
-    bool snakeAppleCollision();
+    bool snakeAppleCollision() const;
 
     // Runs one turn of the game. Returns true if nothing happened; False if the snake died
     bool nextTurn();

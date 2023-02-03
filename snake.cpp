@@ -70,10 +70,10 @@ void Snake::setDirection(Direction direction) {
 
 }
 
-int Snake::size() {
+int Snake::size() const {
     return m_body.size();
 }
 
-BodyPart Snake::partAt(int x) {
+const BodyPart& Snake::partAt(int x) const {
     return m_body[x];
 }

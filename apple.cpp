@@ -6,6 +6,6 @@ Apple::Apple(Point coord)
     // Everything is initialised
 }
 
-Point Apple::getCoord() {
+const Point& Apple::getCoord() const {
     return m_coord;
 }
